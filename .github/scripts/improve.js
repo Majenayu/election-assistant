@@ -1,19 +1,19 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fs = require('fs');
 const path = require('path');
 
 async function improveApp() {
   console.log("🤖 AI Improvement Agent Starting...");
   
-  // Check for API key
-  if (!process.env.GEMINI_API_KEY) {
-    console.log("⚠️  GEMINI_API_KEY not found in environment variables");
-    console.log("📝 Please add GEMINI_API_KEY to GitHub Secrets");
+  // Check for API key - try OpenRouter first, then Gemini
+  const openRouterKey = process.env.OPENROUTER_API_KEY;
+  const geminiKey = process.env.GEMINI_API_KEY;
+  
+  if (!openRouterKey && !geminiKey) {
+    console.log("⚠️  No API keys found in environment variables");
+    console.log("📝 Please add OPENROUTER_API_KEY or GEMINI_API_KEY to GitHub Secrets");
     console.log("✅ Workflow completed (skipped AI improvements)");
     return;
   }
-  
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   
   try {
     // Read current state
@@ -28,12 +28,7 @@ async function improveApp() {
     const mainPage = fs.existsSync(mainPagePath) ? 
       fs.readFileSync(mainPagePath, 'utf8').substring(0, 3000) : '';
     
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash" 
-    });
-    
-    const prompt = `
-You are improving an Election Education Assistant app competing for top 400 out of 4 million submissions.
+    const prompt = `You are improving an Election Education Assistant app competing for top 400 out of 4 million submissions.
 
 CURRENT STATE:
 Project: ${packageJson.name}
@@ -66,12 +61,20 @@ Respond with ONLY valid JSON (no markdown, no backticks):
     }
   ],
   "suggested_readme_update": "New feature bullet point to add to README"
-}
-`;
+}`;
 
     console.log("🔍 Analyzing current state...");
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    
+    let responseText;
+    
+    // Try OpenRouter first (more reliable)
+    if (openRouterKey) {
+      console.log("📡 Using OpenRouter API...");
+      responseText = await callOpenRouter(prompt, openRouterKey);
+    } else {
+      console.log("📡 Using Gemini API...");
+      responseText = await callGemini(prompt, geminiKey);
+    }
     
     // Clean response
     let cleanResponse = responseText
@@ -127,6 +130,44 @@ ${improvements.improvements.map((imp, i) => `
     console.log("✅ Workflow completed (with errors)");
     process.exit(0); // Don't fail the workflow
   }
+}
+
+async function callOpenRouter(prompt, apiKey) {
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://github.com/Majenayu/election-assistant',
+      'X-Title': 'Election Assistant AI Improvement'
+    },
+    body: JSON.stringify({
+      model: 'google/gemini-2.0-flash-exp:free',
+      messages: [
+        {
+          role: 'user',
+          content: prompt
+        }
+      ]
+    })
+  });
+  
+  if (!response.ok) {
+    throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}`);
+  }
+  
+  const data = await response.json();
+  return data.choices[0].message.content;
+}
+
+async function callGemini(prompt, apiKey) {
+  const { GoogleGenerativeAI } = require("@google/generative-ai");
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
+  
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  return response.text();
 }
 
 function incrementVersion(version) {
