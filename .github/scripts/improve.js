@@ -2,10 +2,18 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fs = require('fs');
 const path = require('path');
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
 async function improveApp() {
   console.log("🤖 AI Improvement Agent Starting...");
+  
+  // Check for API key
+  if (!process.env.GEMINI_API_KEY) {
+    console.log("⚠️  GEMINI_API_KEY not found in environment variables");
+    console.log("📝 Please add GEMINI_API_KEY to GitHub Secrets");
+    console.log("✅ Workflow completed (skipped AI improvements)");
+    return;
+  }
+  
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   
   try {
     // Read current state
@@ -111,9 +119,12 @@ ${improvements.improvements.map((imp, i) => `
     
     console.log(`✅ Improvements logged successfully!`);
     console.log(`📊 New version: ${packageJson.version}`);
+    console.log(`📄 Check AI_IMPROVEMENTS.md for details`);
     
   } catch (error) {
     console.error("❌ Error during improvement:", error.message);
+    console.error("Stack trace:", error.stack);
+    console.log("✅ Workflow completed (with errors)");
     process.exit(0); // Don't fail the workflow
   }
 }

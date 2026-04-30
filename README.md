@@ -56,12 +56,43 @@ election-assistant/
 
 ## Technologies
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **AI**: Google Gemini API
 - **Charts**: Recharts
 - **Icons**: Lucide React
+
+## AI Auto-Improvement Workflow
+
+This project includes an automated AI improvement workflow that runs every 8 hours to suggest enhancements.
+
+### Setup GitHub Actions Workflow
+
+1. Go to your repository **Settings** → **Secrets and variables** → **Actions**
+2. Click **New repository secret**
+3. Add secret name: `GEMINI_API_KEY`
+4. Add your Gemini API key as the value
+5. Save the secret
+
+The workflow will now:
+- Analyze your codebase automatically
+- Suggest improvements using AI
+- Log suggestions in `AI_IMPROVEMENTS.md`
+- Update version numbers
+- Commit changes automatically
+
+You can also trigger it manually from the **Actions** tab.
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Import your GitHub repository to Vercel
+2. Add environment variable: `GEMINI_API_KEY`
+3. Deploy!
+
+The app will automatically redeploy on every push to main.
 
 ## License
 
