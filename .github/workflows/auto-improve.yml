@@ -38,5 +38,4 @@ jobs:
           git config user.name "AI Improvement Bot"
           git config user.email "ai-bot@election-assistant.app"
           git add .
-          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Auto-improvement: $(date '+%Y-%m-%d %H:%M')"
-          git push
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-improvement: $(date '+%Y-%m-%d %H:%M')" && git pull --rebase origin main && git push)
