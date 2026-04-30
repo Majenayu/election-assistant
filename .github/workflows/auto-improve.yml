@@ -1,0 +1,38 @@
+name: AI Auto-Improvement
+
+on:
+  schedule:
+    - cron: '0 */8 * * *'  # Every 8 hours
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  improve:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Install AI Dependencies
+        run: npm install @google/generative-ai
+      
+      - name: Run AI Improvement
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node .github/scripts/improve.js
+      
+      - name: Commit Changes
+        run: |
+          git config user.name "AI Improvement Bot"
+          git config user.email "ai-bot@election-assistant.app"
+          git add .
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Auto-improvement: $(date '+%Y-%m-%d %H:%M')"
+          git push

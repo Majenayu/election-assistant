@@ -1,0 +1,68 @@
+# Election Assistant
+
+An interactive election information platform built with Next.js, featuring AI-powered chatbot, quizzes, timeline visualization, and election simulation tools.
+
+## Features
+
+- 🤖 **AI Voice Chatbot** - Powered by Google Gemini AI
+- 📝 **Interactive Quiz** - Test your election knowledge
+- 📅 **Timeline View** - Visualize election milestones
+- 📊 **Data Visualization** - Election statistics and insights
+- 🎮 **Election Simulator** - Simulate election scenarios
+- 🌐 **Multi-language Support** - Accessible to diverse audiences
+- 🌓 **Dark Mode** - Eye-friendly interface
+- 📱 **PWA Support** - Install as a mobile app
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- Google Gemini API key
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file based on `.env.example`:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Add your Gemini API key to `.env`
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000)
+
+## Project Structure
+
+```
+election-assistant/
+├── app/                 # Next.js app directory
+├── components/          # React components
+├── lib/                # Utility functions and constants
+├── public/             # Static assets
+└── .github/            # GitHub workflows
+```
+
+## Technologies
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **AI**: Google Gemini API
+- **Charts**: Recharts
+- **Icons**: Lucide React
+
+## License
+
+MIT
