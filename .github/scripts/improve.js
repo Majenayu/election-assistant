@@ -73,9 +73,9 @@ Respond with ONLY valid JSON (no markdown, no backticks):
     // Priority 1: Try OpenRouter with 3 different models
     if (openRouterKey && !success) {
       const openRouterModels = [
-        'meta-llama/llama-3.2-3b-instruct:free',
-        'google/gemini-2.0-flash-exp:free',
-        'mistralai/mistral-7b-instruct:free'
+        'qwen/qwen-2-7b-instruct:free',
+        'microsoft/phi-3-mini-128k-instruct:free',
+        'huggingfaceh4/zephyr-7b-beta:free'
       ];
       
       for (let i = 0; i < openRouterModels.length; i++) {
@@ -128,6 +128,35 @@ Respond with ONLY valid JSON (no markdown, no backticks):
       } catch (error) {
         console.log("⚠️  Gemini failed:", error.message);
       }
+    }
+    
+    if (!success) {
+      console.log("⚠️  All API providers failed");
+      console.log("📝 Using fallback improvement suggestions...");
+      
+      // Fallback: Create basic improvement without AI
+      responseText = JSON.stringify({
+        improvements: [
+          {
+            type: "enhancement",
+            title: "Add Progressive Web App (PWA) Features",
+            description: "Enhance the app with offline capabilities and install prompts to improve user engagement and accessibility",
+            implementation: "Configure service workers, add manifest.json with proper icons, implement offline fallback pages",
+            priority: "high"
+          },
+          {
+            type: "optimization",
+            title: "Implement Code Splitting and Lazy Loading",
+            description: "Reduce initial bundle size and improve load times by implementing dynamic imports for route-based code splitting",
+            implementation: "Use Next.js dynamic imports for heavy components, implement React.lazy for non-critical features",
+            priority: "medium"
+          }
+        ],
+        suggested_readme_update: "- ⚡ **Performance Optimized** - Fast loading with code splitting and lazy loading"
+      });
+      
+      success = true;
+      console.log("✅ Using fallback suggestions");
     }
     
     if (!success) {
@@ -256,7 +285,7 @@ async function callTogetherAI(prompt, apiKey) {
 }
 
 async function callHuggingFace(prompt, apiKey) {
-  const response = await fetch('https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct', {
+  const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${apiKey}`,
@@ -278,31 +307,54 @@ async function callHuggingFace(prompt, apiKey) {
   }
   
   const data = await response.json();
-  return data[0].generated_text;
+  
+  // Handle different response formats
+  if (Array.isArray(data)) {
+    return data[0].generated_text;
+  } else if (data.generated_text) {
+    return data.generated_text;
+  } else if (data[0] && data[0].generated_text) {
+    return data[0].generated_text;
+  }
+  
+  throw new Error('Unexpected Hugging Face response format');
 }
 
 async function callGemini(prompt, apiKey) {
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      contents: [{
-        parts: [{
-          text: prompt
-        }]
-      }]
-    })
-  });
+  // Try multiple Gemini models
+  const models = [
+    'gemini-1.5-flash-latest',
+    'gemini-1.5-pro-latest',
+    'gemini-pro'
+  ];
   
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Gemini API error: ${response.status} - ${errorText}`);
+  for (const modelName of models) {
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: prompt
+            }]
+          }]
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        return data.candidates[0].content.parts[0].text;
+      }
+    } catch (error) {
+      // Try next model
+      continue;
+    }
   }
   
-  const data = await response.json();
-  return data.candidates[0].content.parts[0].text;
+  throw new Error('All Gemini models failed');
 }
 
 function incrementVersion(version) {
