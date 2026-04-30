@@ -21,7 +21,7 @@ async function improveApp() {
       fs.readFileSync(mainPagePath, 'utf8').substring(0, 3000) : '';
     
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.0-flash-thinking-exp" 
+      model: "gemini-1.5-flash" 
     });
     
     const prompt = `
