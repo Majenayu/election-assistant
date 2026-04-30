@@ -29,7 +29,7 @@ async function improveApp() {
       fs.readFileSync(mainPagePath, 'utf8').substring(0, 3000) : '';
     
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash" 
+      model: "gemini-pro" 
     });
     
     const prompt = `
