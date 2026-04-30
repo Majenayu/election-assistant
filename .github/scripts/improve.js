@@ -67,13 +67,25 @@ Respond with ONLY valid JSON (no markdown, no backticks):
     
     let responseText;
     
-    // Try OpenRouter first (more reliable)
+    // Try OpenRouter first, fallback to Gemini if it fails
     if (openRouterKey) {
-      console.log("📡 Using OpenRouter API...");
-      responseText = await callOpenRouter(prompt, openRouterKey);
-    } else {
+      try {
+        console.log("📡 Using OpenRouter API...");
+        responseText = await callOpenRouter(prompt, openRouterKey);
+      } catch (openRouterError) {
+        console.log("⚠️  OpenRouter failed:", openRouterError.message);
+        if (geminiKey) {
+          console.log("🔄 Falling back to Gemini API...");
+          responseText = await callGemini(prompt, geminiKey);
+        } else {
+          throw openRouterError;
+        }
+      }
+    } else if (geminiKey) {
       console.log("📡 Using Gemini API...");
       responseText = await callGemini(prompt, geminiKey);
+    } else {
+      throw new Error("No valid API keys available");
     }
     
     // Clean response
@@ -142,18 +154,21 @@ async function callOpenRouter(prompt, apiKey) {
       'X-Title': 'Election Assistant AI Improvement'
     },
     body: JSON.stringify({
-      model: 'google/gemini-2.0-flash-exp:free',
+      model: 'meta-llama/llama-3.2-3b-instruct:free',
       messages: [
         {
           role: 'user',
           content: prompt
         }
-      ]
+      ],
+      temperature: 0.7,
+      max_tokens: 2000
     })
   });
   
   if (!response.ok) {
-    throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`OpenRouter API error: ${response.status} ${response.statusText} - ${errorText}`);
   }
   
   const data = await response.json();
@@ -161,13 +176,28 @@ async function callOpenRouter(prompt, apiKey) {
 }
 
 async function callGemini(prompt, apiKey) {
-  const { GoogleGenerativeAI } = require("@google/generative-ai");
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
+  // Use fetch instead of SDK for better control
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-002:generateContent?key=${apiKey}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      contents: [{
+        parts: [{
+          text: prompt
+        }]
+      }]
+    })
+  });
   
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  return response.text();
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Gemini API error: ${response.status} ${response.statusText} - ${errorText}`);
+  }
+  
+  const data = await response.json();
+  return data.candidates[0].content.parts[0].text;
 }
 
 function incrementVersion(version) {
