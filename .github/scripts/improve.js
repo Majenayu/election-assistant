@@ -4,13 +4,15 @@ const path = require('path');
 async function improveApp() {
   console.log("🤖 AI Improvement Agent Starting...");
   
-  // Check for API key - try OpenRouter first, then Gemini
+  // Check for API keys
   const openRouterKey = process.env.OPENROUTER_API_KEY;
   const geminiKey = process.env.GEMINI_API_KEY;
+  const huggingFaceKey = process.env.HUGGINGFACE_API_KEY;
+  const togetherKey = process.env.TOGETHER_API_KEY;
   
-  if (!openRouterKey && !geminiKey) {
+  if (!openRouterKey && !geminiKey && !huggingFaceKey && !togetherKey) {
     console.log("⚠️  No API keys found in environment variables");
-    console.log("📝 Please add OPENROUTER_API_KEY or GEMINI_API_KEY to GitHub Secrets");
+    console.log("📝 Please add one of: OPENROUTER_API_KEY, GEMINI_API_KEY, HUGGINGFACE_API_KEY, TOGETHER_API_KEY");
     console.log("✅ Workflow completed (skipped AI improvements)");
     return;
   }
@@ -66,26 +68,70 @@ Respond with ONLY valid JSON (no markdown, no backticks):
     console.log("🔍 Analyzing current state...");
     
     let responseText;
+    let success = false;
     
-    // Try OpenRouter first, fallback to Gemini if it fails
-    if (openRouterKey) {
-      try {
-        console.log("📡 Using OpenRouter API...");
-        responseText = await callOpenRouter(prompt, openRouterKey);
-      } catch (openRouterError) {
-        console.log("⚠️  OpenRouter failed:", openRouterError.message);
-        if (geminiKey) {
-          console.log("🔄 Falling back to Gemini API...");
-          responseText = await callGemini(prompt, geminiKey);
-        } else {
-          throw openRouterError;
+    // Priority 1: Try OpenRouter with 3 different models
+    if (openRouterKey && !success) {
+      const openRouterModels = [
+        'meta-llama/llama-3.2-3b-instruct:free',
+        'google/gemini-2.0-flash-exp:free',
+        'mistralai/mistral-7b-instruct:free'
+      ];
+      
+      for (let i = 0; i < openRouterModels.length; i++) {
+        try {
+          console.log(`📡 Trying OpenRouter API (attempt ${i + 1}/3) with model: ${openRouterModels[i]}...`);
+          responseText = await callOpenRouter(prompt, openRouterKey, openRouterModels[i]);
+          success = true;
+          console.log("✅ OpenRouter succeeded!");
+          break;
+        } catch (error) {
+          console.log(`⚠️  OpenRouter attempt ${i + 1} failed:`, error.message);
+          if (i === openRouterModels.length - 1) {
+            console.log("❌ All OpenRouter attempts failed");
+          }
         }
       }
-    } else if (geminiKey) {
-      console.log("📡 Using Gemini API...");
-      responseText = await callGemini(prompt, geminiKey);
-    } else {
-      throw new Error("No valid API keys available");
+    }
+    
+    // Priority 2: Try Together AI
+    if (togetherKey && !success) {
+      try {
+        console.log("📡 Trying Together AI...");
+        responseText = await callTogetherAI(prompt, togetherKey);
+        success = true;
+        console.log("✅ Together AI succeeded!");
+      } catch (error) {
+        console.log("⚠️  Together AI failed:", error.message);
+      }
+    }
+    
+    // Priority 3: Try Hugging Face
+    if (huggingFaceKey && !success) {
+      try {
+        console.log("📡 Trying Hugging Face...");
+        responseText = await callHuggingFace(prompt, huggingFaceKey);
+        success = true;
+        console.log("✅ Hugging Face succeeded!");
+      } catch (error) {
+        console.log("⚠️  Hugging Face failed:", error.message);
+      }
+    }
+    
+    // Priority 4: Try Gemini (last resort)
+    if (geminiKey && !success) {
+      try {
+        console.log("📡 Trying Gemini API...");
+        responseText = await callGemini(prompt, geminiKey);
+        success = true;
+        console.log("✅ Gemini succeeded!");
+      } catch (error) {
+        console.log("⚠️  Gemini failed:", error.message);
+      }
+    }
+    
+    if (!success) {
+      throw new Error("All API providers failed. Please check your API keys.");
     }
     
     // Clean response
@@ -144,7 +190,7 @@ ${improvements.improvements.map((imp, i) => `
   }
 }
 
-async function callOpenRouter(prompt, apiKey) {
+async function callOpenRouter(prompt, apiKey, model) {
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -154,7 +200,7 @@ async function callOpenRouter(prompt, apiKey) {
       'X-Title': 'Election Assistant AI Improvement'
     },
     body: JSON.stringify({
-      model: 'meta-llama/llama-3.2-3b-instruct:free',
+      model: model,
       messages: [
         {
           role: 'user',
@@ -168,16 +214,75 @@ async function callOpenRouter(prompt, apiKey) {
   
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`OpenRouter API error: ${response.status} ${response.statusText} - ${errorText}`);
+    throw new Error(`OpenRouter API error: ${response.status} - ${errorText}`);
+  }
+  
+  const data = await response.json();
+  
+  if (data.error) {
+    throw new Error(`OpenRouter error: ${data.error.message || JSON.stringify(data.error)}`);
+  }
+  
+  return data.choices[0].message.content;
+}
+
+async function callTogetherAI(prompt, apiKey) {
+  const response = await fetch('https://api.together.xyz/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'meta-llama/Llama-3.2-3B-Instruct-Turbo',
+      messages: [
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      temperature: 0.7,
+      max_tokens: 2000
+    })
+  });
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Together AI error: ${response.status} - ${errorText}`);
   }
   
   const data = await response.json();
   return data.choices[0].message.content;
 }
 
+async function callHuggingFace(prompt, apiKey) {
+  const response = await fetch('https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      inputs: prompt,
+      parameters: {
+        max_new_tokens: 2000,
+        temperature: 0.7,
+        return_full_text: false
+      }
+    })
+  });
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Hugging Face error: ${response.status} - ${errorText}`);
+  }
+  
+  const data = await response.json();
+  return data[0].generated_text;
+}
+
 async function callGemini(prompt, apiKey) {
-  // Use fetch instead of SDK for better control
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-002:generateContent?key=${apiKey}`, {
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -193,7 +298,7 @@ async function callGemini(prompt, apiKey) {
   
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Gemini API error: ${response.status} ${response.statusText} - ${errorText}`);
+    throw new Error(`Gemini API error: ${response.status} - ${errorText}`);
   }
   
   const data = await response.json();
