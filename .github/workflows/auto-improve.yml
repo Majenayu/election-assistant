@@ -2,8 +2,12 @@ name: AI Auto-Improvement (Multi-Provider)
 
 on:
   schedule:
-    - cron: '0 */8 * * *'  # Every 8 hours for 3 days
+    - cron: '0 */8 * * *'  # Every 8 hours
   workflow_dispatch:  # Allow manual trigger
+
+# ✅ FIX 1: Grant write permission so the bot can push commits
+permissions:
+  contents: write
 
 jobs:
   improve:
@@ -11,16 +15,15 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ITHUB_TOKEN }}
           fetch-depth: 0
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
       
       - name: Install AI dependencies
         run: npm install @google/generative-ai
