@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 🎙️ **Voice Navigation** - Navigate using voice commands for enhanced accessibility
+
+
 - ⚡ **Performance Optimized** - Fast loading with code splitting and lazy loading
 
 
