@@ -7,6 +7,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 - ⚡ **Performance Optimized** - Fast loading with code splitting and lazy loading
 
 
+- ⚡ **Performance Optimized** - Fast loading with code splitting and lazy loading
+
+
 - 🤖 **AI Voice Chatbot** - Powered by Google Gemini AI
 - 📝 **Interactive Quiz** - Test your election knowledge
 - 📅 **Timeline View** - Visualize election milestones
