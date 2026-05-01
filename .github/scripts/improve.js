@@ -77,13 +77,13 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
     let responseText = null;
     let usedProvider = null;
     
-    // PRIORITY 1: Try Gemini (Best for code, FREE, reliable)
+    // ✅ FIX 2: Updated Gemini model names + use v1beta API version
     if (geminiKey && !responseText) {
       const geminiModels = [
-        'gemini-2.0-flash-exp',
-        'gemini-1.5-flash-latest',
-        'gemini-1.5-flash',
-        'gemini-pro'
+        'gemini-2.0-flash',          // ✅ Current stable flash model
+        'gemini-2.0-flash-lite',     // ✅ Lighter version
+        'gemini-1.5-flash',          // ✅ Fallback stable model
+        'gemini-1.5-pro',            // ✅ More capable fallback
       ];
       
       for (const modelName of geminiModels) {
@@ -103,15 +103,16 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
       }
     }
     
-    // PRIORITY 2: Try OpenRouter (Multiple free models available)
+    // ✅ FIX 3: Updated OpenRouter free model list to currently available ones
     if (openRouterKey && !responseText) {
       const openRouterModels = [
-        'google/gemini-2.0-flash-exp:free',
-        'google/gemini-flash-1.5:free',
-        'meta-llama/llama-3.2-3b-instruct:free',
-        'meta-llama/llama-3.1-8b-instruct:free',
-        'nousresearch/hermes-3-llama-3.1-405b:free',
-        'mistralai/mistral-7b-instruct:free'
+        'deepseek/deepseek-r1:free',                    // ✅ Popular free model
+        'deepseek/deepseek-chat-v3-0324:free',          // ✅ DeepSeek V3
+        'meta-llama/llama-3.3-70b-instruct:free',       // ✅ Llama 3.3
+        'meta-llama/llama-3.2-3b-instruct:free',        // ✅ Smaller Llama
+        'google/gemini-2.0-flash-exp:free',             // ✅ Gemini via OpenRouter
+        'microsoft/phi-4:free',                         // ✅ Microsoft Phi-4
+        'qwen/qwen-2.5-72b-instruct:free',              // ✅ Qwen free tier
       ];
       
       for (const model of openRouterModels) {
@@ -131,7 +132,7 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
       }
     }
     
-    // PRIORITY 3: Try Together AI (Paid but has free trial credits)
+    // Together AI (requires paid credits — add funds at api.together.ai/settings/billing)
     if (togetherKey && !responseText) {
       const togetherModels = [
         'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
@@ -157,12 +158,12 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
       }
     }
     
-    // PRIORITY 4: Try Hugging Face (Free inference API)
+    // ✅ FIX 4: Updated HuggingFace to use the new Inference API (chat completions format)
     if (huggingFaceKey && !responseText) {
       const hfModels = [
-        'meta-llama/Meta-Llama-3-8B-Instruct',
+        'meta-llama/Llama-3.2-3B-Instruct',
         'mistralai/Mistral-7B-Instruct-v0.3',
-        'microsoft/Phi-3-mini-4k-instruct'
+        'HuggingFaceH4/zephyr-7b-beta',
       ];
       
       for (const model of hfModels) {
@@ -306,16 +307,20 @@ ${improvements.improvements.map((imp, i) => `
 
 // ==================== API FUNCTIONS ====================
 
+// ✅ FIX 2: Pass apiVersion: 'v1beta' so newer Gemini models are reachable
 async function callGemini(prompt, apiKey, modelName) {
   const genAI = new GoogleGenerativeAI(apiKey);
   
-  const model = genAI.getGenerativeModel({ 
-    model: modelName,
-    generationConfig: {
-      temperature: 0.7,
-      maxOutputTokens: 2000,
-    }
-  });
+  const model = genAI.getGenerativeModel(
+    { 
+      model: modelName,
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 2000,
+      }
+    },
+    { apiVersion: 'v1beta' }   // ← required for gemini-2.0-flash and newer
+  );
   
   const result = await model.generateContent(prompt);
   const response = await result.response;
@@ -382,23 +387,24 @@ async function callTogetherAI(prompt, apiKey, model) {
   return data.choices[0].message.content;
 }
 
+// ✅ FIX 4: Use the new HuggingFace Inference API (chat completions endpoint)
 async function callHuggingFace(prompt, apiKey, model) {
-  const response = await fetch(`https://api-inference.huggingface.co/models/${model}`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      inputs: prompt,
-      parameters: {
-        max_new_tokens: 2000,
+  const response = await fetch(
+    `https://router.huggingface.co/hf-inference/models/${model}/v1/chat/completions`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: model,
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 2000,
         temperature: 0.7,
-        return_full_text: false,
-        do_sample: true
-      }
-    })
-  });
+      })
+    }
+  );
   
   if (!response.ok) {
     const errorText = await response.text();
@@ -407,13 +413,8 @@ async function callHuggingFace(prompt, apiKey, model) {
   
   const data = await response.json();
   
-  // Hugging Face returns different formats
-  if (Array.isArray(data) && data[0]?.generated_text) {
-    return data[0].generated_text;
-  } else if (data.generated_text) {
-    return data.generated_text;
-  } else if (typeof data === 'string') {
-    return data;
+  if (data.choices && data.choices[0]?.message?.content) {
+    return data.choices[0].message.content;
   }
   
   throw new Error('Unexpected Hugging Face response format');
