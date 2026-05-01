@@ -1,44 +1,52 @@
-name: AI Auto-Improvement
+name: AI Auto-Improvement (Multi-Provider)
 
 on:
   schedule:
-    - cron: '0 */8 * * *'  # Every 8 hours
-  workflow_dispatch:  # Manual trigger
-
-permissions:
-  contents: write
-  pull-requests: write
+    - cron: '0 */8 * * *'  # Every 8 hours for 3 days
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   improve:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
+          cache: 'npm'
       
-      - name: Install AI Dependencies
+      - name: Install AI dependencies
         run: npm install @google/generative-ai
       
-      - name: Run AI Improvement
+      - name: Run AI improvement agent (Multi-Provider)
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          HUGGINGFACE_API_KEY: ${{ secrets.HUGGINGFACE_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
+          HUGGINGFACE_API_KEY: ${{ secrets.HUGGINGFACE_API_KEY }}
         run: node .github/scripts/improve.js
       
-      - name: Commit Changes
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
         run: |
           git config user.name "AI Improvement Bot"
           git config user.email "ai-bot@election-assistant.app"
-          git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-improvement: $(date '+%Y-%m-%d %H:%M')" && git pull --rebase origin main && git push)
+          git add -A
+          git commit -m "🤖 AI auto-improvement: $(date '+%Y-%m-%d %H:%M UTC')"
+          git push
+      
+      - name: No changes detected
+        if: steps.git-check.outputs.changes != 'true'
+        run: echo "ℹ️  No changes to commit"
