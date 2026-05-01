@@ -158,28 +158,32 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
       }
     }
     
-    // ✅ FIX 4: Updated HuggingFace to use the new Inference API (chat completions format)
+    // HuggingFace: try multiple router providers since hf-inference
+    // doesn't support most chat models — nebius/together/fireworks-ai do.
     if (huggingFaceKey && !responseText) {
-      const hfModels = [
-        'meta-llama/Llama-3.2-3B-Instruct',
-        'mistralai/Mistral-7B-Instruct-v0.3',
-        'HuggingFaceH4/zephyr-7b-beta',
+      const hfCombinations = [
+        ['nebius',       'meta-llama/Llama-3.3-70B-Instruct'],
+        ['nebius',       'meta-llama/Llama-3.1-8B-Instruct-fast'],
+        ['nebius',       'mistralai/Mistral-7B-Instruct-v0.3'],
+        ['together',     'meta-llama/Llama-3.3-70B-Instruct-Turbo'],
+        ['together',     'meta-llama/Llama-3.2-3B-Instruct-Turbo'],
+        ['fireworks-ai', 'accounts/fireworks/models/llama-v3p1-8b-instruct'],
       ];
-      
-      for (const model of hfModels) {
+
+      for (const [provider, model] of hfCombinations) {
         try {
-          console.log(`📡 [HUGGINGFACE] Trying model: ${model}...`);
-          responseText = await callHuggingFace(prompt, huggingFaceKey, model);
-          usedProvider = `Hugging Face (${model})`;
-          console.log(`✅ Hugging Face ${model} succeeded!`);
+          console.log(`📡 [HUGGINGFACE/${provider}] Trying model: ${model}...`);
+          responseText = await callHuggingFace(prompt, huggingFaceKey, provider, model);
+          usedProvider = `Hugging Face/${provider} (${model})`;
+          console.log(`✅ Hugging Face/${provider} ${model} succeeded!`);
           break;
         } catch (error) {
-          console.log(`⚠️  Hugging Face ${model} failed: ${error.message}`);
+          console.log(`⚠️  Hugging Face/${provider} ${model} failed: ${error.message}`);
         }
       }
-      
+
       if (!responseText) {
-        console.log("❌ All Hugging Face models failed");
+        console.log("❌ All Hugging Face providers/models failed");
       }
     }
     
@@ -387,36 +391,37 @@ async function callTogetherAI(prompt, apiKey, model) {
   return data.choices[0].message.content;
 }
 
-// ✅ FIX 4: Use the new HuggingFace Inference API (chat completions endpoint)
-async function callHuggingFace(prompt, apiKey, model) {
-  const response = await fetch(
-    `https://router.huggingface.co/hf-inference/models/${model}/v1/chat/completions`,
-    {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: model,
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 2000,
-        temperature: 0.7,
-      })
-    }
-  );
-  
+// HuggingFace router — provider is one of: nebius, together, fireworks-ai
+async function callHuggingFace(prompt, apiKey, provider, model) {
+  // nebius uses /v1/chat/completions at the provider root
+  // together and fireworks-ai use the same pattern
+  const url = `https://router.huggingface.co/${provider}/v1/chat/completions`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: model,
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: 2000,
+      temperature: 0.7,
+    })
+  });
+
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(`Hugging Face error ${response.status}: ${errorText}`);
   }
-  
+
   const data = await response.json();
-  
+
   if (data.choices && data.choices[0]?.message?.content) {
     return data.choices[0].message.content;
   }
-  
+
   throw new Error('Unexpected Hugging Face response format');
 }
 
