@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 🌐 **Virtual Election Simulator** - Immersive and interactive election simulations for enhanced civic engagement
+
+
 - 💡 **Election Emotion Analysis** - Analyze public sentiment and emotional trends in election-related news and social media posts
 
 
