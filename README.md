@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📈 **Augmented Reality Election Visualization** - Visualize election data in 3D with interactive AR technology
+
+
 - 📊 **Election Issue Tracker** - Track and receive updates on election issues that matter to you
 
 
