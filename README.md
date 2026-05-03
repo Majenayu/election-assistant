@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📊 **Election Issue Tracker** - Track and receive updates on election issues that matter to you
+
+
 - 🗺️ **Election Influencer Map** - Explore key influencers and their impact on elections with interactive visualizations
 
 
