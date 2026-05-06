@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📊 **Election Sentiment Analysis** - Analyze user opinions and emotions towards candidates and election issues, providing personalized insights
+
+
 - 🌐 **Virtual Reality Election Experience** - Explore election data and scenarios in an immersive 3D environment
 
 
