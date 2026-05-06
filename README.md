@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 🗳️ **Personalized Election Recommendation Engine** - Receive tailored candidate and voting recommendations based on your interests and values
+
+
 - 🗣️ **AI-Driven Election Debate Simulator** - Engage in simulated debates with AI-powered candidates to enhance critical thinking and decision-making skills
 
 
