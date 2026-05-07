@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 🔍 **Augmented Reality Candidate Comparison** - Compare candidate information in an immersive AR environment
+
+
 - 📊 **Election Forecasting** - Predict election outcomes based on user interactions and sentiment analysis
 
 
