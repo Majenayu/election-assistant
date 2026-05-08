@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📈 **Election Influencer Analysis** - Uncover the social media influence of election candidates and gain a deeper understanding of the election landscape
+
+
 - 🗺️ **Interactive Election Map** - Explore election data and trends geographically
 
 
