@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 💻 **AI-Driven Voter Profile** - Get a personalized voter profile with tailored election insights and recommendations
+
+
 - 💡 **Personalized Voting Recommendations** - Get tailored voting suggestions based on your values and preferences
 
 
