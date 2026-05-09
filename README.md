@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 💡 **Personalized Voting Recommendations** - Get tailored voting suggestions based on your values and preferences
+
+
 - 💻 **Election Impact Simulator** - Explore the real-world consequences of election outcomes and discover how your vote can shape the future
 
 
