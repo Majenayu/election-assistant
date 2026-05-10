@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📊 **Election Forecasting** - Predictive modeling tool that forecasts election outcomes based on real-time data and user interactions
+
+
 - 🌐 **Augmented Reality Voter Guide** - Explore election information in an immersive 3D environment, enhancing your understanding of candidates and issues
 
 
