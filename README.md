@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 🌟 **Social Impact Tracker** - Engage with a community and track the real-world impact of your voting decisions
+
+
 - 🗣️ **Virtual Debate Simulator** - Engage in immersive debates with AI-powered election candidates and enhance your understanding of key issues
 
 
