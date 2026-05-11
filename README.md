@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📰 **Personalized Election News Feed** - Stay up-to-date with relevant election news tailored to your interests and voter profile
+
+
 - 🌎 **Multilingual Support** - Explore election information in your preferred language, breaking down language barriers to informed voting
 
 
