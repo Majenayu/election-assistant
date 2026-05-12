@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📸 **Augmented Reality Voter Guide** - Explore election information in an immersive AR experience, and - ♿️ **Personalized Accessibility Mode** - Enjoy a tailored accessibility experience with AI-driven adaptations
+
+
 - 🗺️ **Election Influence Map** - Explore the complex relationships between social media, news outlets, and election outcomes
 
 
