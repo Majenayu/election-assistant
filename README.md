@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📊 **Election Outcome Simulator** - Simulate different election scenarios and see the potential outcomes
+
+
 - 📊 **Election Predictions with Machine Learning** - Get data-driven insights into election outcomes, and - 🌐 **Immersive 3D Election Data Visualization** - Explore election data in a fully interactive 3D environment
 
 
