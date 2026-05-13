@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- 📢 **Virtual Election Debate Simulator** - Engage in simulated debates with AI-powered candidates and - 📊 **Interactive Election Data Storytelling** - Explore election data through interactive, immersive storytelling
+
+
 - 📸 **Augmented Reality Voter Guide** - Explore election information in an immersive AR experience, and - ♿️ **Personalized Accessibility Mode** - Enjoy a tailored accessibility experience with AI-driven adaptations
 
 
