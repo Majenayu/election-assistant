@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Night Live Tracker - Get real-time election results and updates as they happen
+
+
 - Election Outcome Predictor - Get predictions on election outcomes based on real-time data and trends
 
 
