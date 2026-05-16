@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Sentiment Analysis - Uncover public opinion and trends through AI-powered social media analysis
+
+
 - Virtual Election Debate Simulator - Engage in immersive debates with AI-powered candidate avatars
 
 
