@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Outcome Predictor - Get predictions on election outcomes based on real-time data and trends
+
+
 - Election Sentiment Analysis - Uncover public opinion and trends through AI-powered social media analysis
 
 
