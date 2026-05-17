@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Issue Tracker: Stay up-to-date on the issues that matter most to you with personalized tracking and updates
+
+
 - Personalized Voter Guide: Get a customized guide to help you make informed decisions at the polls
 
 
