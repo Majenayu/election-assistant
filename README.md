@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Personalized Voter Guide: Get a customized guide to help you make informed decisions at the polls
+
+
 - Election Night Live Tracker with Real-time Voter Sentiment Analysis - Get real-time insights into voter sentiment and election trends as they happen
 
 
