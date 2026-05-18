@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Influencer Analysis: Uncover the impact of social media influencers on voter sentiment and election trends
+
+
 - Augmented Reality Election Simulator: Visualize election scenarios and outcomes in immersive 3D
 
 
