@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Augmented Reality Election Simulator: Visualize election scenarios and outcomes in immersive 3D
+
+
 - Election Issue Tracker: Stay up-to-date on the issues that matter most to you with personalized tracking and updates
 
 
