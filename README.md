@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Interactive Election Map: Visualize election results and trends by geographical location, enhancing the overall user experience
+
+
 - Immersive Election Scenario Planner: Create and simulate custom election scenarios to explore the impact of different variables on outcomes
 
 
