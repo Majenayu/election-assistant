@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Forecasting: Predict election outcomes with our machine learning-powered forecasting tool, and explore potential results in an interactive and immersive way
+
+
 - Personalized Election Recommendation Engine: Receive tailored candidate and policy recommendations based on your interests and values
 
 
