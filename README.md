@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Issue Tracker: Receive personalized updates and insights on specific election issues, enhancing your understanding and engagement
+
+
 - Election Outcome Simulator with Blockchain Transparency: Simulate election outcomes and track results with transparent, tamper-proof blockchain technology
 
 
