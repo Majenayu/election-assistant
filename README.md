@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Scenario Planner: Create and save custom election scenarios and generate predictive models based on your assumptions
+
+
 - Election Influencer Analysis: Uncover the impact of social media influencers on election outcomes and track their endorsements in real-time
 
 
