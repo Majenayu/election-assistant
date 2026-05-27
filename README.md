@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Impact Calculator: Calculate the potential impact of your vote and engagement on election outcomes
+
+
 - Interactive Election Map: Explore local election data and trends in an immersive and interactive map experience, and receive Personalized Election Recommendations based on your interests and location
 
 
