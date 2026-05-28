@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Personalized Voting Plan: Get a customized voting plan tailored to your location, interests, and schedule
+
+
 - Election Prediction Model: Get personalized election predictions based on your voting history, location, and interests
 
 
