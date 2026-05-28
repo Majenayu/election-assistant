@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Prediction Model: Get personalized election predictions based on your voting history, location, and interests
+
+
 - Election Sentiment Analysis: Uncover real-time public opinion and sentiment on election-related topics
 
 
