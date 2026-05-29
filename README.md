@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Influencer Analyzer: Uncover influential social media figures shaping election discussions and trends
+
+
 - Augmented Reality Candidate Avatar: Interact with AI-powered candidates in immersive augmented reality environments
 
 
