@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Augmented Reality Candidate Avatar: Interact with AI-powered candidates in immersive augmented reality environments
+
+
 - Virtual Election Debate Simulator: Engage in interactive debates with AI-powered candidates to enhance critical thinking and decision-making skills
 
 
