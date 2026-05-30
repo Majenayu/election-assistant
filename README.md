@@ -4,6 +4,9 @@ An interactive election information platform built with Next.js, featuring AI-po
 
 ## Features
 
+- Election Impact Forecasting: Explore how different election outcomes could impact your local community
+
+
 - Election Issue Tracker: Receive personalized updates on election issues that matter to you
 
 
