@@ -1,375 +1,59 @@
 # Election Assistant
 
-An interactive election information platform built with Next.js, featuring AI-powered chatbot, quizzes, timeline visualization, and election simulation tools.
-
-## Features
-
-- Election Sentiment Analysis: Stay informed about public opinion and sentiment around candidates and election issues with real-time analysis from social media and news outlets
-
-
-- Election Impact Forecasting: Explore how different election outcomes could impact your local community
-
-
-- Election Issue Tracker: Receive personalized updates on election issues that matter to you
-
-
-- Election Influencer Analyzer: Uncover influential social media figures shaping election discussions and trends
-
-
-- Augmented Reality Candidate Avatar: Interact with AI-powered candidates in immersive augmented reality environments
-
-
-- Virtual Election Debate Simulator: Engage in interactive debates with AI-powered candidates to enhance critical thinking and decision-making skills
-
-
-- Personalized Voting Plan: Get a customized voting plan tailored to your location, interests, and schedule
-
-
-- Election Prediction Model: Get personalized election predictions based on your voting history, location, and interests
-
-
-- Election Sentiment Analysis: Uncover real-time public opinion and sentiment on election-related topics
-
-
-- Election Impact Calculator: Calculate the potential impact of your vote and engagement on election outcomes
-
-
-- Interactive Election Map: Explore local election data and trends in an immersive and interactive map experience, and receive Personalized Election Recommendations based on your interests and location
-
-
-- Augmented Reality Voter Guide: Explore interactive, location-based candidate information and voting instructions in an immersive AR experience
-
-
-- Election Scenario Planner: Create and save custom election scenarios and generate predictive models based on your assumptions
-
-
-- Election Influencer Analysis: Uncover the impact of social media influencers on election outcomes and track their endorsements in real-time
-
-
-- User-Driven Election Outcome Predictive Modeling: Input your own election scenario assumptions and generate a predictive model outcome
-
-
-- Virtual Reality Election Experience: Explore election scenarios in an immersive simulated environment
-
-
-- Personalized Election Dashboard: Customize your experience with tailored election information and insights
-
-
-- AI-Driven Election Prediction Model: Forecast election outcomes with our machine learning-powered prediction model
-
-
-- Virtual Election Debate Simulator: Engage in realistic debates with AI-powered candidates to deepen your understanding of election issues and candidate positions
-
-
-- Election Sentiment Analysis: Uncover real-time public opinion trends and insights through social media and news outlet analysis
-
-
-- Immersive Election Scenario Planner: Create and explore customized election scenarios to deepen your understanding of election dynamics
-
-
-- Election Issue Tracker: Receive personalized updates and insights on specific election issues, enhancing your understanding and engagement
-
-
-- Election Outcome Simulator with Blockchain Transparency: Simulate election outcomes and track results with transparent, tamper-proof blockchain technology
-
-
-- Election Forecasting: Predict election outcomes with our machine learning-powered forecasting tool, and explore potential results in an interactive and immersive way
-
-
-- Personalized Election Recommendation Engine: Receive tailored candidate and policy recommendations based on your interests and values
-
-
-- Virtual Election Debate Simulator: Engage in simulated debates with AI-powered candidates to explore different perspectives and enhance your understanding of election issues
-
-
-- Election Social Network Analysis: Visualize and analyze the connections between candidates, parties, and influencers on social media
-
-
-- Election Sentiment Analysis: Analyze social media and news trends to gain real-time insights into election sentiment
-
-
-- Interactive Election Map: Visualize election results and trends by geographical location, enhancing the overall user experience
-
-
-- Immersive Election Scenario Planner: Create and simulate custom election scenarios to explore the impact of different variables on outcomes
-
-
-- Election Trend Forecasting: Utilize AI-powered trend analysis to predict election outcomes and key issues
-
-
-- Personalized Election Recommendation Engine: Receive tailored election information and candidate recommendations based on your interests and preferences
-
-
-- Election Predictive Modeling: Utilize machine learning algorithms to forecast election outcomes and explore the possibilities of different scenarios
-
-
-- Virtual Election Debate Simulator: Engage in simulated debates with AI-powered candidates to enhance critical thinking and decision-making skills
-
-
-- Emotional Intelligence Analysis: Uncover the emotional sentiment of election-related social media posts and visualize the emotional landscape of the election
-
-
-- Election Influencer Analysis: Uncover the impact of social media influencers on voter sentiment and election trends
-
-
-- Augmented Reality Election Simulator: Visualize election scenarios and outcomes in immersive 3D
-
-
-- Election Issue Tracker: Stay up-to-date on the issues that matter most to you with personalized tracking and updates
-
-
-- Personalized Voter Guide: Get a customized guide to help you make informed decisions at the polls
-
-
-- Election Night Live Tracker with Real-time Voter Sentiment Analysis - Get real-time insights into voter sentiment and election trends as they happen
-
-
-- Election Night Live Tracker - Get real-time election results and updates as they happen
-
-
-- Election Outcome Predictor - Get predictions on election outcomes based on real-time data and trends
-
-
-- Election Sentiment Analysis - Uncover public opinion and trends through AI-powered social media analysis
-
-
-- Virtual Election Debate Simulator - Engage in immersive debates with AI-powered candidate avatars
-
-
-- Election Influencer Analysis - Uncover the impact of social media influencers on election outcomes
-
-
-- Interactive Election Map - Explore election data by location, and gain a deeper understanding of the electoral landscape
-
-
-- 🌐 **Augmented Reality Election Visualization** - Explore election data in a fully immersive AR environment
-
-
-- Personalized Election Recommendation Engine - Get tailored election information and candidate suggestions based on your interests and preferences
-
-
-- 🌐 **AI-Powered Election Trend Forecasting** - Explore future election trends and predictions with our machine learning-powered forecasting tool
-
-
-- 📊 **Election Outcome Simulator** - Simulate different election scenarios and see the potential outcomes
-
-
-- 📊 **Election Predictions with Machine Learning** - Get data-driven insights into election outcomes, and - 🌐 **Immersive 3D Election Data Visualization** - Explore election data in a fully interactive 3D environment
-
-
-- 📢 **Virtual Election Debate Simulator** - Engage in simulated debates with AI-powered candidates and - 📊 **Interactive Election Data Storytelling** - Explore election data through interactive, immersive storytelling
-
-
-- 📸 **Augmented Reality Voter Guide** - Explore election information in an immersive AR experience, and - ♿️ **Personalized Accessibility Mode** - Enjoy a tailored accessibility experience with AI-driven adaptations
-
-
-- 🗺️ **Election Influence Map** - Explore the complex relationships between social media, news outlets, and election outcomes
-
-
-- 💡 **Election Emotion Analysis** - Gain a deeper understanding of the emotional tone of election news and debates with AI-powered sentiment analysis
-
-
-- 📰 **Personalized Election News Feed** - Stay up-to-date with relevant election news tailored to your interests and voter profile
-
-
-- 🌎 **Multilingual Support** - Explore election information in your preferred language, breaking down language barriers to informed voting
-
-
-- 🌟 **Social Impact Tracker** - Engage with a community and track the real-world impact of your voting decisions
-
-
-- 🗣️ **Virtual Debate Simulator** - Engage in immersive debates with AI-powered election candidates and enhance your understanding of key issues
-
-
-- 📊 **Election Forecasting** - Predictive modeling tool that forecasts election outcomes based on real-time data and user interactions
-
-
-- 🌐 **Augmented Reality Voter Guide** - Explore election information in an immersive 3D environment, enhancing your understanding of candidates and issues
-
-
-- 💻 **AI-Driven Voter Profile** - Get a personalized voter profile with tailored election insights and recommendations
-
-
-- 💡 **Personalized Voting Recommendations** - Get tailored voting suggestions based on your values and preferences
-
-
-- 💻 **Election Impact Simulator** - Explore the real-world consequences of election outcomes and discover how your vote can shape the future
-
-
-- 💡 **Emotional Intelligence Analysis** - Unlock the emotional intelligence of election candidates and discover how their personalities shape their policies
-
-
-- 🔮 **Virtual Election Experience** - Step into a virtual voting booth and engage with immersive election simulations
-
-
-- 📈 **Election Influencer Analysis** - Uncover the social media influence of election candidates and gain a deeper understanding of the election landscape
-
-
-- 🗺️ **Interactive Election Map** - Explore election data and trends geographically
-
-
-- 🔍 **Augmented Reality Candidate Comparison** - Compare candidate information in an immersive AR environment
-
-
-- 📊 **Election Forecasting** - Predict election outcomes based on user interactions and sentiment analysis
-
-
-- 🗳️ **Personalized Election Recommendation Engine** - Receive tailored candidate and voting recommendations based on your interests and values
-
-
-- 🗣️ **AI-Driven Election Debate Simulator** - Engage in simulated debates with AI-powered candidates to enhance critical thinking and decision-making skills
-
-
-- 📊 **Election Sentiment Analysis** - Analyze user opinions and emotions towards candidates and election issues, providing personalized insights
-
-
-- 🌐 **Virtual Reality Election Experience** - Explore election data and scenarios in an immersive 3D environment
-
-
-- 📊 **Virtual Election Scenario Planner** - Create and simulate custom election scenarios to explore different voting strategies and their potential outcomes
-
-
-- 🗺️ **Interactive Election Map** - Explore election data and trends in an immersive and interactive map
-
-
-- 📊 **Election Outcome Impact Simulator** - Simulate the impact of your vote on election outcomes and explore the electoral process in an interactive and immersive way
-
-
-- ⚖️ **Election Predictive Modeling** - Forecast election outcomes with AI-driven predictive analytics and interactive visualizations
-
-
-- 🤖 **Personalized Election Recommendations** - Receive tailored election information and candidate suggestions based on your interests and values
-
-
-- 🤖 **AI-Driven Election Debates** - Engage in virtual debates with AI-powered candidates for enhanced civic engagement and education
-
-
-- 📈 **Augmented Reality Election Visualization** - Visualize election data in 3D with interactive AR technology
-
-
-- 📊 **Election Issue Tracker** - Track and receive updates on election issues that matter to you
-
-
-- 🗺️ **Election Influencer Map** - Explore key influencers and their impact on elections with interactive visualizations
-
-
-- 🌐 **Virtual Election Simulator** - Immersive and interactive election simulations for enhanced civic engagement
-
-
-- 💡 **Election Emotion Analysis** - Analyze public sentiment and emotional trends in election-related news and social media posts
-
-
-- 🎙️ **Voice Navigation** - Navigate using voice commands for enhanced accessibility
-
-
-- 🔮 **Election Forecasting** - Predict election outcomes with machine learning models
-
-
-- 🗳️ **Personalized Election Recommendations** - Get tailored candidate suggestions and election insights based on your interests
-
-
-- 🎙️ **Voice Navigation** - Navigate using voice commands for enhanced accessibility
-
-
-- ⚡ **Performance Optimized** - Fast loading with code splitting and lazy loading
-
-
-- ⚡ **Performance Optimized** - Fast loading with code splitting and lazy loading
-
-
-- ⚡ **Performance Optimized** - Fast loading with code splitting and lazy loading
-
-
-- 🤖 **AI Voice Chatbot** - Powered by Google Gemini AI
-- 📝 **Interactive Quiz** - Test your election knowledge
-- 📅 **Timeline View** - Visualize election milestones
-- 📊 **Data Visualization** - Election statistics and insights
-- 🎮 **Election Simulator** - Simulate election scenarios
-- 🌐 **Multi-language Support** - Accessible to diverse audiences
-- 🌓 **Dark Mode** - Eye-friendly interface
-- 📱 **PWA Support** - Install as a mobile app
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ 
-- npm or yarn
-- Google Gemini API key
-
-### Installation
-
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env` file based on `.env.example`:
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Add your Gemini API key to `.env`
-
-5. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-6. Open [http://localhost:3000](http://localhost:3000)
-
-## Project Structure
-
-```
-election-assistant/
-├── app/                 # Next.js app directory
-├── components/          # React components
-├── lib/                # Utility functions and constants
-├── public/             # Static assets
-└── .github/            # GitHub workflows
+A Next.js 16 and React 18 educational election assistant. It presents election timelines, multilingual content, quizzes, charts, theme controls, and an optional voice/AI assistant in a responsive client application.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  Browser[Browser] --> Next[Next.js App Router]
+  Next --> Pages[app/page.tsx and app/layout.tsx]
+  Pages --> Components[components/*]
+  Components --> Constants[lib/constants.ts]
+  Components --> Gemini[lib/gemini.ts / configured AI provider]
+  Components --> Charts[Recharts visualizations]
 ```
 
-## Technologies
+The repository is primarily a client-rendered experience. UI components own presentation and interaction; `lib/constants.ts` provides domain content and `lib/gemini.ts` isolates AI calls.
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **AI**: Google Gemini API
-- **Charts**: Recharts
-- **Icons**: Lucide React
+## Setup
 
-## AI Auto-Improvement Workflow
+```bash
+npm ci
+cp .env.example .env.local
+npm run dev
+# production
+npm run build && npm start
+```
 
-This project includes an automated AI improvement workflow that runs every 8 hours to suggest enhancements.
+Keep provider keys in `.env.local` or the deployment secret store. The development server normally runs on port `3000`.
 
-### Setup GitHub Actions Workflow
+## User workflow
 
-1. Go to your repository **Settings** → **Secrets and variables** → **Actions**
-2. Click **New repository secret**
-3. Add secret name: `GEMINI_API_KEY`
-4. Add your Gemini API key as the value
-5. Save the secret
-
-The workflow will now:
-- Analyze your codebase automatically
-- Suggest improvements using AI
-- Log suggestions in `AI_IMPROVEMENTS.md`
-- Update version numbers
-- Commit changes automatically
-
-You can also trigger it manually from the **Actions** tab.
+Users explore the landing page, navigate the timeline, switch language/theme, answer quizzes, inspect chart data, and optionally use voice chat. AI requests are sent through the isolated Gemini helper and should be treated as untrusted external input/output.
 
 ## Deployment
 
-### Vercel (Recommended)
+Deploy as a Node.js Next.js service on Vercel or another platform that supports Next.js 16. Configure environment variables, build with `npm run build`, and start with `npm start`.
 
-1. Import your GitHub repository to Vercel
-2. Add environment variable: `GEMINI_API_KEY`
-3. Deploy!
+## Testing and limitations
 
-The app will automatically redeploy on every push to main.
+No dedicated test runner is configured. Run the production build and manually test keyboard navigation, mobile layouts, language switching, charts, quiz state, and AI-provider failure states. Election information is educational content; verify facts and accessibility before public use.
+
+## Security and operations
+
+- Keep credentials, database URLs, OAuth tokens, API keys, and signing secrets in environment variables; never commit them.
+- Validate and constrain uploaded files and user input at the server boundary, and enable HTTPS in production.
+- Review dependency updates and rotate any credential that has appeared in repository history.
+
+## Testing
+
+The repository currently has no comprehensive automated test suite unless noted above. Before production changes, add tests for authentication/authorization, validation failures, persistence errors, and the primary user workflow.
+
+## Limitations and roadmap
+
+This is an actively evolving project. Production hardening, observability, rate limiting, backup/retention policy, and accessibility/performance validation should be completed before handling sensitive or high-volume workloads.
 
 ## License
 
-MIT
+See the repository license file and package metadata for the authoritative terms.
