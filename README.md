@@ -57,3 +57,14 @@ This is an actively evolving project. Production hardening, observability, rate 
 ## License
 
 See the repository license file and package metadata for the authoritative terms.
+## Implementation notes
+
+The App Router entrypoint is `app/page.tsx`, with global metadata/styles in `app/layout.tsx` and UI modules in `components/`. `lib/constants.ts` contains the educational election/timeline content; `DataVisualization.tsx`, `TimelineView.tsx`, and `QuizComponent.tsx` render the learning workflow. `lib/gemini.ts` backs the `/api/chat` interaction used by the voice/chat assistant.
+
+### API and validation
+
+The chat endpoint and provider helper are the only documented server-facing integration in this repository. Validate provider errors, rate limits, prompt size, and content accuracy; election content is informational and must not be presented as official election guidance without independent review.
+
+### License status
+
+No dedicated license file is present in the inspected tree; license terms are unspecified and should be added before external redistribution.
